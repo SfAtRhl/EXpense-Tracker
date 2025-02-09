@@ -1,4 +1,5 @@
 import icons from "@/constants/icons";
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, Text, View } from "react-native";
 
@@ -40,7 +41,7 @@ const TabsLayout = () => {
           position: "absolute",
           borderTopColor: "#0061FF1A",
           borderTopWidth: 1,
-          minHeight: 70,
+          minHeight: 50,
         },
       }}
     >
@@ -50,7 +51,11 @@ const TabsLayout = () => {
           title: "Home",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.home} title="Home" />
+            <Ionicons
+              name="home"
+              size={24}
+              color={focused ? "#0061FF" : "gray"}
+            />
           ),
         }}
       />
@@ -60,7 +65,25 @@ const TabsLayout = () => {
           title: "Statistics",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.search} title="Statistics" />
+            <Ionicons
+              name="stats-chart"
+              size={24}
+              color={focused ? "#0061FF" : "gray"}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Category"
+        options={{
+          title: "Categories",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="grid"
+              size={24}
+              color={focused ? "#0061FF" : "gray"}
+            />
           ),
         }}
       />
