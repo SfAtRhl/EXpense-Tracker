@@ -1,8 +1,3 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -12,9 +7,22 @@ import "react-native-reanimated";
 import "../global.css";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import SharedHeader from "@/components/SharedHeader";
+import { SafeAreaView, View } from "react-native";
+import { ExpensesProvider } from "../contexts/ExpensesContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+function App() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <SharedHeader />
+      <Stack screenOptions={{ headerShown: false }} />
+    </SafeAreaView>
+  );
+}
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -38,13 +46,10 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {/* <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" /> */}
-      <Stack screenOptions={{ headerShown: false }} />
+    <ThemeProvider>
+      <ExpensesProvider>
+        <App />
+      </ExpensesProvider>
     </ThemeProvider>
   );
 }

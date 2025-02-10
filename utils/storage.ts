@@ -14,6 +14,16 @@ export const saveExpense = async (expense: Expense) => {
   }
 };
 
+export const removeExpense = async (id: string) => {
+  try {
+    const expenses = await loadExpenses();
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    await AsyncStorage.setItem(EXPENSES_KEY, JSON.stringify(updatedExpenses));
+  } catch (error) {
+    console.error("Error removing expense:", error);
+  }
+};
+
 export const loadExpenses = async (): Promise<Expense[]> => {
   try {
     const expensesJson = await AsyncStorage.getItem(EXPENSES_KEY);

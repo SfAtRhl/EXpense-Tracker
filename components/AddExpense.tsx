@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import type { Expense } from "../types";
 import { Picker } from "@react-native-picker/picker";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface AddExpenseProps {
   onAddExpense: (expense: Expense) => void;
@@ -52,6 +53,8 @@ export default function AddExpense({
     }).start();
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
     <View className="mb-4">
       <TouchableOpacity
@@ -71,14 +74,20 @@ export default function AddExpense({
       >
         <View className="flex flex-col">
           <TextInput
-            className="h-12 px-4 mb-2 border border-gray-300 rounded-md"
+            className={`h-12 px-4 mb-2 border border-gray-300 rounded-md ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
             placeholder="Expense title"
+            placeholderTextColor={isDarkMode ? "#FFFFFF" : "#000000"}
             value={title}
             onChangeText={setTitle}
           />
           <TextInput
-            className="h-12 px-4 mb-2 border border-gray-300 rounded-md"
+            className={`h-12 px-4 mb-2 border border-gray-300 rounded-md ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
             placeholder="Amount"
+            placeholderTextColor={isDarkMode ? "#FFFFFF" : "#000000"}
             value={amount}
             onChangeText={setAmount}
             keyboardType="numeric"
@@ -88,6 +97,8 @@ export default function AddExpense({
               selectedValue={category}
               onValueChange={(itemValue) => setCategory(itemValue)}
               className="h-12 px-4 mb-2 border border-gray-300 rounded-md"
+              style={{ color: isDarkMode ? "white" : "black" }}
+              dropdownIconColor={isDarkMode ? "white" : "black"}
             >
               {categories.map((cat) => (
                 <Picker.Item key={cat} label={cat} value={cat} />

@@ -1,4 +1,5 @@
 import icons from "@/constants/icons";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, Text, View } from "react-native";
@@ -32,15 +33,16 @@ const TabIcon = ({
 );
 
 const TabsLayout = () => {
+  const { isDarkMode } = useTheme();
   return (
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "white",
+          backgroundColor: isDarkMode ? "black" : "white",
           position: "absolute",
           borderTopColor: "#0061FF1A",
-          borderTopWidth: 1,
+          borderTopWidth: 0.2,
           minHeight: 50,
         },
       }}
