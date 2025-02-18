@@ -18,7 +18,7 @@ import { useExpenses } from "@/hooks/useExpenses";
 export default function CategoryPage() {
   const [modalVisible, setModalVisible] = useState(false);
   const [newCategory, setNewCategory] = useState("");
-  const [editingCategory, setEditingCategory] = useState(null);
+  const [editingCategory, setEditingCategory] = useState<string | null>(null);
   const { expenses, categories, addCategory, updateCategory, deleteCategory } =
     useExpenses();
   const [filteredExpenses, setFilteredExpenses] = useState(expenses);
@@ -41,17 +41,21 @@ export default function CategoryPage() {
     }
   };
 
-  const handleEditCategory = (category: { category: any }) => {
+  const handleEditCategory = (category: string) => {
     setEditingCategory(category);
     setNewCategory(category);
     setModalVisible(true);
   };
 
-  const handleDeleteCategory = (category: { category: any }) => {
+  const handleDeleteCategory = (category: string) => {
     deleteCategory(category);
   };
 
-  const handleFilter = (filters: { filters: any }) => {
+  const handleFilter = (filters: {
+    category?: string;
+    startDate?: string;
+    endDate?: string;
+  }) => {
     const filtered = expenses.filter((expense) => {
       if (filters.category && expense.category !== filters.category) {
         return false;

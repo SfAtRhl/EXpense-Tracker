@@ -86,6 +86,7 @@ export default function Statistics() {
   const { isDarkMode } = useTheme();
 
   return (
+    
     <SafeAreaView
       className={`flex-1 p-4 ${isDarkMode ? "bg-gray-900" : "bg-gray-100"}`}
     >

@@ -8,9 +8,9 @@ import { useTheme } from "@/contexts/ThemeContext";
 
 interface FilterComponentProps {
   onFilter: (filter: {
-    category: string;
-    startDate: Date;
-    endDate: Date;
+    category?: string;
+    startDate?: string;
+    endDate?: string;
   }) => void;
   categories: string[];
 }
@@ -31,7 +31,11 @@ export default function FilterComponent({
   const { isDarkMode } = useTheme();
 
   const handleFilter = () => {
-    onFilter({ category, startDate, endDate });
+    onFilter({
+      category,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+    });
   };
 
   return (
